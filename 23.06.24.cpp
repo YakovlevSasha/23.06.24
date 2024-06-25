@@ -113,45 +113,99 @@ using namespace std;
 #pragma endregion
 
 #pragma region 3 завдання
+//
+//void reverseLinesInFile(const string& inputFilename, const string& outputFilename) {
+//    ifstream inputFile(inputFilename);
+//    if (!inputFile.is_open()) {
+//        cerr << "Cannot open the input file: " << inputFilename << endl;
+//        return;
+//    }
+//
+//    vector<string> lines;
+//    string line;
+//    while (getline(inputFile, line)) {
+//        lines.push_back(line);
+//    }
+//
+//    inputFile.close();
+//
+//    ofstream outputFile(outputFilename);
+//    if (!outputFile.is_open()) {
+//        cerr << "Cannot open the output file: " << outputFilename << endl;
+//        return;
+//    }
+//
+//    for (auto it = lines.rbegin(); it != lines.rend(); ++it) {
+//        outputFile << *it << endl;
+//    }
+//
+//    outputFile.close();
+//}
+//
+//int main() {
+//    string inputFilename = "file.txt";
+//    string outputFilename = "output.txt";
+//
+//    reverseLinesInFile(inputFilename, outputFilename);
+//
+//    cout << "The lines from " << inputFilename << " have been reversed and written to " << outputFilename << "." << endl;
+//
+//    return 0;
+//}
 
-void reverseLinesInFile(const string& inputFilename, const string& outputFilename) {
-    ifstream inputFile(inputFilename);
+#pragma endregion
+
+#pragma region 4завдання
+
+bool containsSpace(const string& str) {
+    return str.find(' ') != string::npos;
+}
+
+void addDashesAfterLastNonSpaceLine(const string& filename) {
+    ifstream inputFile(filename);
     if (!inputFile.is_open()) {
-        cerr << "Cannot open the input file: " << inputFilename << endl;
+        cerr << "Cannot open the input file: " << filename << endl;
         return;
     }
 
     vector<string> lines;
     string line;
+    int lastNonSpaceLineIndex = -1;
+
     while (getline(inputFile, line)) {
         lines.push_back(line);
+        if (!containsSpace(line)) {
+            lastNonSpaceLineIndex = lines.size() - 1;
+        }
     }
 
     inputFile.close();
 
-    ofstream outputFile(outputFilename);
+    if (lastNonSpaceLineIndex == -1) {
+        lines.push_back("------------");
+    }
+    else {
+        lines.insert(lines.begin() + lastNonSpaceLineIndex + 1, "------------");
+    }
+
+    ofstream outputFile(filename);
     if (!outputFile.is_open()) {
-        cerr << "Cannot open the output file: " << outputFilename << endl;
+        cerr << "Cannot open the output file: " << filename << endl;
         return;
     }
 
-    for (auto it = lines.rbegin(); it != lines.rend(); ++it) {
-        outputFile << *it << endl;
+    for (const auto& line : lines) {
+        outputFile << line << endl;
     }
 
     outputFile.close();
 }
 
 int main() {
-    string inputFilename = "file.txt";
-    string outputFilename = "output.txt";
-
-    reverseLinesInFile(inputFilename, outputFilename);
-
-    cout << "The lines from " << inputFilename << " have been reversed and written to " << outputFilename << "." << endl;
-
+    string filename = "input.txt";
+    addDashesAfterLastNonSpaceLine(filename);
+    cout << "Dashes have been added to " << filename << "." << endl;
     return 0;
 }
 
 #pragma endregion
-

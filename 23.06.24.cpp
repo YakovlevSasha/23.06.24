@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -205,6 +206,7 @@ int main() {
     string filename = "input.txt";
     addDashesAfterLastNonSpaceLine(filename);
     cout << "Dashes have been added to " << filename << "." << endl;
+    cout<<"End";
     return 0;
 }
 

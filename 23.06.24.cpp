@@ -74,43 +74,84 @@ using namespace std;
 
 
 #pragma region 2 завдання
+//
+//void copyFileLines(const string& sourceFile, const string& targetFile) {
+//    ifstream inFile(sourceFile);
+//    ofstream outFile(targetFile);
+//
+//    if (!inFile.is_open()) {
+//        cerr << "Cannot open the source file: " << sourceFile << endl;
+//        return;
+//    }
+//
+//    if (!outFile.is_open()) {
+//        cerr << "Cannot open the target file: " << targetFile << endl;
+//        return;
+//    }
+//
+//    string line;
+//    while (getline(inFile, line)) {
+//        outFile << line << endl;
+//    }
+//
+//    inFile.close();
+//    outFile.close();
+//}
+//
+//int main() {
+//    string sourceFile = "file.txt";
+//    string targetFile = "result.txt";
+//
+//    copyFileLines(sourceFile, targetFile);
+//
+//    cout << "Lines copied from " << sourceFile << " to " << targetFile << " successfully." << endl;
+//
+//    return 0;
+//}
+//
 
-void copyFileLines(const string& sourceFile, const string& targetFile) {
-    ifstream inFile(sourceFile);
-    ofstream outFile(targetFile);
+#pragma endregion
 
-    if (!inFile.is_open()) {
-        cerr << "Cannot open the source file: " << sourceFile << endl;
+#pragma region 3 завдання
+
+void reverseLinesInFile(const string& inputFilename, const string& outputFilename) {
+    ifstream inputFile(inputFilename);
+    if (!inputFile.is_open()) {
+        cerr << "Cannot open the input file: " << inputFilename << endl;
         return;
     }
 
-    if (!outFile.is_open()) {
-        cerr << "Cannot open the target file: " << targetFile << endl;
-        return;
-    }
-
+    vector<string> lines;
     string line;
-    while (getline(inFile, line)) {
-        outFile << line << endl;
+    while (getline(inputFile, line)) {
+        lines.push_back(line);
     }
 
-    inFile.close();
-    outFile.close();
+    inputFile.close();
+
+    ofstream outputFile(outputFilename);
+    if (!outputFile.is_open()) {
+        cerr << "Cannot open the output file: " << outputFilename << endl;
+        return;
+    }
+
+    for (auto it = lines.rbegin(); it != lines.rend(); ++it) {
+        outputFile << *it << endl;
+    }
+
+    outputFile.close();
 }
 
 int main() {
-    string sourceFile = "file.txt";
-    string targetFile = "result.txt";
+    string inputFilename = "file.txt";
+    string outputFilename = "output.txt";
 
-    copyFileLines(sourceFile, targetFile);
+    reverseLinesInFile(inputFilename, outputFilename);
 
-    cout << "Lines copied from " << sourceFile << " to " << targetFile << " successfully." << endl;
+    cout << "The lines from " << inputFilename << " have been reversed and written to " << outputFilename << "." << endl;
 
     return 0;
 }
 
-
 #pragma endregion
-
-
 
